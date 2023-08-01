@@ -1,7 +1,7 @@
 import { Boom } from '@hapi/boom'
 import { createHash } from 'crypto'
 import { proto } from '../../WAProto'
-import { KEY_BUNDLE_TYPE } from '../Defaults'
+import { KEY_BUNDLE_TYPE, WA_VERSION } from '../Defaults'
 import type { AuthenticationCreds, SignalCreds, SocketConfig } from '../Types'
 import { BinaryNode, getBinaryNodeChild, jidDecode, S_WHATSAPP_NET } from '../WABinary'
 import { Curve, hmacSign } from './crypto'
@@ -10,7 +10,7 @@ import { createSignalIdentity } from './signal'
 
 const getUserAgent = (config: SocketConfig): proto.ClientPayload.IUserAgent => {
 	const osVersion = config.mobile ? '15.3.1' : '0.1'
-	const version = config.mobile ? [2, 22, 24] : config.version
+	const version = config.mobile ? WA_VERSION : config.version
 	const device = config.mobile ? 'iPhone_7' : 'Desktop'
 	const manufacturer = config.mobile ? 'Apple' : ''
 	const platform = config.mobile ? proto.ClientPayload.UserAgent.Platform.IOS : proto.ClientPayload.UserAgent.Platform.MACOS
